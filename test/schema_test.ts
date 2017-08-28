@@ -22,6 +22,7 @@ const {
     orderHashSchema,
     orderSchema,
     signedOrderSchema,
+    signedOrdersSchema,
     blockParamSchema,
     subscriptionOptsSchema,
     tokenSchema,
@@ -247,6 +248,24 @@ describe('Schema', () => {
                     s: '0x40349190569279751135161d22529dc25add4f6069af05be04cacbda2ace2254',
                 },
             };
+            describe('#signedOrdersSchema', () => {
+                it('should validate valid signed orders', () => {
+                    const testCases = [
+                        [signedOrder],
+                    ];
+                    validateAgainstSchema(testCases, signedOrdersSchema);
+                });
+                it('should fail for invalid signed orders', () => {
+                    const testCases = [
+                        [
+                            signedOrder,
+                            1,
+                        ],
+                    ];
+                    const shouldFail = true;
+                    validateAgainstSchema(testCases, signedOrdersSchema, shouldFail);
+                });
+            });
             describe('#signedOrderSchema', () => {
                 it('should validate valid signed order', () => {
                     const testCases = [
