@@ -12,5 +12,5 @@ const order = {
     ...
 };
 const validatorResult: ValidatorResult = validator.validate(order, orderSchema); // Contains all errors
-const isValid: boolean = validator.validate(order, orderSchema); // Only returns boolean
+const isValid: boolean = validator.isValid(order, orderSchema); // Only returns boolean
 ```
