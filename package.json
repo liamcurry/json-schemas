@@ -5,11 +5,10 @@
   "main": "lib/index.js",
   "scripts": {
     "lint": "tslint src/*.ts test/*.ts",
-    "test": "run-s clean test:commonjs",
-    "test:commonjs": "run-s build:commonjs run_mocha",
+    "test": "run-s clean build run_mocha",
     "run_mocha": "mocha lib/test/**/*_test.js",
     "clean": "shx rm -rf _bundles lib test_temp",
-    "build:commonjs": "tsc"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
