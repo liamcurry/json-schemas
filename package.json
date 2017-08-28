@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/0xProject/json-schemas/issues"
   },
-  "homepage": "https://github.com/0xProject/json-schemas#readme"
+  "homepage": "https://github.com/0xProject/json-schemas#readme",
+  "dependencies": {
+    "jsonschema": "^1.2.0"
+  }
 }
