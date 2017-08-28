@@ -1,4 +1,4 @@
-# json-schemas
+# json-schemas [![CircleCI](https://circleci.com/gh/0xProject/json-schemas.svg?style=svg)](https://circleci.com/gh/0xProject/json-schemas)
 Contains 0x-related json schemas
 
 ## Usage:
