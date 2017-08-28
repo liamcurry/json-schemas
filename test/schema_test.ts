@@ -1,11 +1,13 @@
 import 'mocha';
 import * as _ from 'lodash';
+import * as dirtyChai from 'dirty-chai';
 import * as chai from 'chai';
 import * as BigNumber from 'bignumber.js';
 import promisify = require('es6-promisify');
 import {SchemaValidator, schemas} from '../src/index';
 
 chai.config.includeStack = true;
+chai.use(dirtyChai);
 const expect = chai.expect;
 const NULL_ADDRESS = '0x0000000000000000000000000000000000000000';
 const {
