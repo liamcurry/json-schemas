@@ -2,7 +2,7 @@
   "name": "0x-json-schemas",
   "version": "0.1.1",
   "description": "0x-related json schemas",
-  "main": "lib/index.js",
+  "main": "lib/src/index.js",
   "scripts": {
     "lint": "tslint src/*.ts test/*.ts",
     "test": "run-s clean build run_mocha",
