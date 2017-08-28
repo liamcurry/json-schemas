@@ -3,6 +3,7 @@
   "version": "0.1.2",
   "description": "0x-related json schemas",
   "main": "lib/src/index.js",
+  "types": "lib/src/index.d.ts",
   "scripts": {
     "lint": "tslint src/*.ts test/*.ts",
     "test": "run-s clean build run_mocha",
