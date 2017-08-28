@@ -1,10 +1,15 @@
 {
-  "name": "json-schemas",
+  "name": "0x-json-schemas",
   "version": "0.0.1",
   "description": "0x-related json schemas",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "lint": "tslint src/*.ts test/*.ts"
+    "lint": "tslint src/*.ts test/*.ts",
+    "test": "run-s clean test:commonjs",
+    "test:commonjs": "run-s build:commonjs run_mocha",
+    "run_mocha": "mocha lib/test/**/*_test.js",
+    "clean": "shx rm -rf _bundles lib test_temp",
+    "build:commonjs": "tsc"
   },
   "repository": {
     "type": "git",
@@ -20,6 +25,16 @@
     "jsonschema": "^1.2.0"
   },
   "devDependencies": {
+    "@types/bignumber.js": "^4.0.3",
+    "@types/lodash": "^4.14.74",
+    "@types/mocha": "^2.2.42",
+    "bignumber.js": "^4.0.2",
+    "chai": "^4.1.1",
+    "chai-typescript-typings": "^0.0.0",
+    "lodash": "^4.17.4",
+    "mocha": "^3.5.0",
+    "npm-run-all": "^4.1.1",
+    "shx": "^0.2.2",
     "tslint": "^5.7.0",
     "tslint-config-0xproject": "^0.0.2",
     "typescript": "^2.4.2"
