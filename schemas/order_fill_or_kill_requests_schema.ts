@@ -4,7 +4,7 @@ export const orderFillOrKillRequestsSchema = {
     items: {
         properties: {
             signedOrder: {$ref: '/signedOrderSchema'},
-            fillTakerAmount: {$ref: '/numberSchema'},
+            fillTakerAmount: {$ref: '/Number'},
         },
         required: ['signedOrder', 'fillTakerAmount'],
         type: 'object',

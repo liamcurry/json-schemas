@@ -4,7 +4,7 @@ export const orderFillRequestsSchema = {
     items: {
         properties: {
             signedOrder: {$ref: '/signedOrderSchema'},
-            takerTokenFillAmount: {$ref: '/numberSchema'},
+            takerTokenFillAmount: {$ref: '/Number'},
         },
         required: ['signedOrder', 'takerTokenFillAmount'],
         type: 'object',

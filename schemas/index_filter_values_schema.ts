@@ -1,10 +1,10 @@
 export const indexFilterValuesSchema = {
-    id: '/indexFilterValues',
+    id: '/IndexFilterValues',
     additionalProperties: {
         oneOf: [
-            {$ref: '/numberSchema'},
-            {$ref: '/addressSchema'},
-            {$ref: '/orderHashSchema'},
+            {$ref: '/Number'},
+            {$ref: '/Address'},
+            {$ref: '/OrderHashSchema'},
         ],
     },
     type: 'object',

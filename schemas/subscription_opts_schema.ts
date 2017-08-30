@@ -1,5 +1,5 @@
 export const blockParamSchema = {
-    id: '/blockParam',
+    id: '/BlockParam',
     oneOf: [
         {
             type: 'number',
@@ -11,10 +11,10 @@ export const blockParamSchema = {
 };
 
 export const subscriptionOptsSchema = {
-    id: '/subscriptionOpts',
+    id: '/SubscriptionOpts',
     properties: {
-        fromBlock: {$ref: '/blockParam'},
-        toBlock: {$ref: '/blockParam'},
+        fromBlock: {$ref: '/BlockParam'},
+        toBlock: {$ref: '/BlockParam'},
     },
     type: 'object',
 };

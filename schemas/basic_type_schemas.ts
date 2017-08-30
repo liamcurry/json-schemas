@@ -1,11 +1,11 @@
 export const addressSchema = {
-    id: '/addressSchema',
+    id: '/Address',
     type: 'string',
     pattern: '^0x[0-9a-f]{40}$',
 };
 
 export const numberSchema = {
-    id: '/numberSchema',
+    id: '/Number',
     type: 'string',
     pattern: '^\\d+(\\.\\d+)?$',
 };

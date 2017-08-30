@@ -1,10 +1,10 @@
 export const tokenSchema = {
-    id: '/token',
+    id: '/Token',
     properties: {
         name: {type: 'string'},
         symbol: {type: 'string'},
         decimals: {type: 'number'},
-        address: {$ref: '/addressSchema'},
+        address: {$ref: '/Address'},
     },
     required: ['name', 'symbol', 'decimals', 'address'],
     type: 'object',

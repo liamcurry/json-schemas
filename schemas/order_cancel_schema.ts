@@ -3,8 +3,8 @@ export const orderCancellationRequestsSchema = {
     type: 'array',
     items: {
         properties: {
-            order: {$ref: '/orderSchema'},
-            takerTokenCancelAmount: {$ref: '/numberSchema'},
+            order: {$ref: '/OrderSchema'},
+            takerTokenCancelAmount: {$ref: '/Number'},
         },
         required: ['order', 'takerTokenCancelAmount'],
         type: 'object',

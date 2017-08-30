@@ -1,22 +1,22 @@
 export const orderSchema = {
-    id: '/orderSchema',
+    id: '/OrderSchema',
     properties: {
-        maker: {$ref: '/addressSchema'},
-        taker: {$ref: '/addressSchema'},
+        maker: {$ref: '/Address'},
+        taker: {$ref: '/Address'},
 
-        makerFee: {$ref: '/numberSchema'},
-        takerFee: {$ref: '/numberSchema'},
+        makerFee: {$ref: '/Number'},
+        takerFee: {$ref: '/Number'},
 
-        makerTokenAmount: {$ref: '/numberSchema'},
-        takerTokenAmount: {$ref: '/numberSchema'},
+        makerTokenAmount: {$ref: '/Number'},
+        takerTokenAmount: {$ref: '/Number'},
 
-        makerTokenAddress: {$ref: '/addressSchema'},
-        takerTokenAddress: {$ref: '/addressSchema'},
+        makerTokenAddress: {$ref: '/Address'},
+        takerTokenAddress: {$ref: '/Address'},
 
-        salt: {$ref: '/numberSchema'},
-        feeRecipient: {$ref: '/addressSchema'},
-        expirationUnixTimestampSec: {$ref: '/numberSchema'},
-        exchangeContractAddress: {$ref: '/addressSchema'},
+        salt: {$ref: '/Number'},
+        feeRecipient: {$ref: '/Address'},
+        expirationUnixTimestampSec: {$ref: '/Number'},
+        exchangeContractAddress: {$ref: '/Address'},
     },
     required: [
         'maker', 'taker', 'makerFee', 'takerFee', 'makerTokenAmount', 'takerTokenAmount',
@@ -28,7 +28,7 @@ export const orderSchema = {
 export const signedOrderSchema = {
     id: '/signedOrderSchema',
     allOf: [
-        { $ref: '/orderSchema' },
+        { $ref: '/OrderSchema' },
         {
             properties: {
                 ecSignature: {$ref: '/ECSignature'},
