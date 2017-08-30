@@ -10,6 +10,9 @@ export class SchemaValidator {
             this.validator.addSchema(schema, schema.id);
         }
     }
+    public addSchema(schema: Schema) {
+        this.validator.addSchema(schema, schema.id);
+    }
     // In order to validate a complex JS object using jsonschema, we must replace any complex
     // sub-types (e.g BigNumber) with a simpler string representation. Since BigNumber and other
     // complex types implement the `toString` method, we can stringify the object and
