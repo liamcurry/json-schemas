@@ -32,6 +32,9 @@ import {
 import {
     tokenSchema,
 } from '../schemas/token_schema';
+import {
+    signedOrdersSchema,
+} from '../schemas/signed_orders_schema';
 
 export const schemas = {
     numberSchema,
