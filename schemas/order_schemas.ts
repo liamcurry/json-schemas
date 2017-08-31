@@ -1,5 +1,5 @@
 export const orderSchema = {
-    id: '/OrderSchema',
+    id: '/Order',
     properties: {
         maker: {$ref: '/Address'},
         taker: {$ref: '/Address'},
@@ -26,9 +26,9 @@ export const orderSchema = {
 };
 
 export const signedOrderSchema = {
-    id: '/signedOrderSchema',
+    id: '/SignedOrder',
     allOf: [
-        { $ref: '/OrderSchema' },
+        { $ref: '/Order' },
         {
             properties: {
                 ecSignature: {$ref: '/ECSignature'},
