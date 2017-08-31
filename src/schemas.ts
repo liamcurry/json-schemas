@@ -35,6 +35,23 @@ import {
 import {
     signedOrdersSchema,
 } from '../schemas/signed_orders_schema';
+import {
+    relayerApiErrorResponseSchema,
+} from '../schemas/relayer_api_error_response_schema';
+import {
+    relayerApiFeesResponseSchema,
+} from '../schemas/relayer_api_fees_response_schema';
+import {
+    relayerApiFeesPayloadSchema,
+} from '../schemas/relayer_api_fees_payload_schema';
+import {
+    relayerApiOrderResponseSchema,
+    relayerApiOrdersResponseSchema,
+} from '../schemas/relayer_api_order_response_schema';
+import {
+    relayerApiTokenPairsResponseSchema,
+    relayerApiTokenTradeInfoSchema,
+} from '../schemas/relayer_api_token_pairs_response_schema';
 
 export const schemas = {
     numberSchema,
@@ -52,4 +69,11 @@ export const schemas = {
     blockParamSchema,
     subscriptionOptsSchema,
     tokenSchema,
+    relayerApiErrorResponseSchema,
+    relayerApiFeesPayloadSchema,
+    relayerApiFeesResponseSchema,
+    relayerApiOrderResponseSchema,
+    relayerApiOrdersResponseSchema,
+    relayerApiTokenPairsResponseSchema,
+    relayerApiTokenTradeInfoSchema,
 };
