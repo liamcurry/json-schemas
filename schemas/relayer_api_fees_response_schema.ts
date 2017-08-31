@@ -1,4 +1,4 @@
-export const relayerApiFeesResponse = {
+export const relayerApiFeesResponseSchema = {
     id: '/RelayerApiFeesResponse',
     type: 'object',
     properties: {

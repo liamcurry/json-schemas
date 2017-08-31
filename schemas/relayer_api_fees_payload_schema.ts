@@ -1,9 +1,9 @@
-export const relayerApiFeesPayload = {
+export const relayerApiFeesPayloadSchema = {
     id: '/RelayerApiFeesPayload',
     type: 'object',
     properties: {
-        maker: {type: 'string'},
-        taker: {type: 'string'},
+        maker: {$ref: '/Address'},
+        taker: {$ref: '/Address'},
         makerToken: {$ref: '/Address'},
         takerToken: {$ref: '/Address'},
         makerTokenAmount: {$ref: '/Number'},
