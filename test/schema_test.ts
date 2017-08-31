@@ -26,16 +26,30 @@ const {
     blockParamSchema,
     subscriptionOptsSchema,
     tokenSchema,
+    relayerApiErrorResponseSchema,
+    relayerApiFeesPayloadSchema,
+    relayerApiFeesResponseSchema,
+    relayerApiOrderResponseSchema,
+    relayerApiOrdersResponseSchema,
+    relayerApiTokenPairsResponseSchema,
 } = schemas;
 
 describe('Schema', () => {
     const validator = new SchemaValidator();
     const validateAgainstSchema = (testCases: any[], schema: any, shouldFail = false) => {
         _.forEach(testCases, (testCase: any) => {
+            const validationResult = validator.validate(testCase, schema);
+            const hasErrors = validationResult.errors.length !== 0;
             if (shouldFail) {
-                expect(validator.isValid(testCase, schema)).to.be.false();
+                if (!hasErrors) {
+                    throw new Error(
+                        `Expected testCase: ${JSON.stringify(testCase, null, '\t')} to fail and it didn't.`,
+                    );
+                }
             } else {
-                expect(validator.isValid(testCase, schema)).to.be.true();
+                if (hasErrors) {
+                    throw new Error(JSON.stringify(validationResult.errors, null, '\t'));
+                }
             }
         });
     };
@@ -362,6 +376,108 @@ describe('Schema', () => {
                     validateAgainstSchema(testCases, orderFillRequestsSchema, shouldFail);
                 });
             });
+            describe('#relayerApiOrderResponseSchema', () => {
+                it('should validate valid order payload', () => {
+                    const testCases = [
+                        {
+                            signedOrder,
+                            state: 'OPEN',
+                            remainingTakerTokenAmount: '1000000000000000000',
+                        },
+                        {
+                            signedOrder,
+                            state: 'PENDING',
+                            pending: {
+                                fillAmount: '100000000000000000',
+                                cancelAmount: '100000000000000000',
+                            },
+                            remainingTakerTokenAmount: '8000000000000000000',
+                        },
+                    ];
+                    validateAgainstSchema(testCases, relayerApiOrderResponseSchema);
+                });
+                it('should fail for invalid order responses', () => {
+                    const testCases = [
+                        {},
+                        {
+                            signedOrder,
+                            state: 'OPEN',
+                            remainingTakerTokenAmount: 1000000000000000000,
+                        },
+                        {
+                            signedOrder,
+                            state: 'NOT_A_STATE',
+                            remainingTakerTokenAmount: '1000000000000000000',
+                        },
+                        {
+                            signedOrder,
+                            state: 'PENDING',
+                            pending: {
+                                fillAmount: 100000000000000000,
+                            },
+                            remainingTakerTokenAmount: '8000000000000000000',
+                        },
+                    ];
+                    const shouldFail = true;
+                    validateAgainstSchema(testCases, relayerApiOrderResponseSchema, shouldFail);
+                });
+            });
+            describe('#relayerApiOrdersResponseSchema', () => {
+                it('should validate valid orders payload', () => {
+                    const testCases = [
+                        [],
+                        [
+                            {
+                                signedOrder,
+                                state: 'OPEN',
+                                remainingTakerTokenAmount: '1000000000000000000',
+                            },
+                        ],
+                        [
+                            {
+                                signedOrder,
+                                state: 'PENDING',
+                                pending: {
+                                    fillAmount: '100000000000000000',
+                                    cancelAmount: '100000000000000000',
+                                },
+                                remainingTakerTokenAmount: '8000000000000000000',
+                            },
+                        ],
+                    ];
+                    validateAgainstSchema(testCases, relayerApiOrdersResponseSchema);
+                });
+                it('should fail for invalid orders responses', () => {
+                    const testCases = [
+                        [
+                            {
+                                signedOrder,
+                                state: 'OPEN',
+                                remainingTakerTokenAmount: 1000000000000000000,
+                            },
+                        ],
+                        [
+                            {
+                                signedOrder,
+                                state: 'NOT_A_STATE',
+                                remainingTakerTokenAmount: '1000000000000000000',
+                            },
+                        ],
+                        [
+                            {
+                                signedOrder,
+                                state: 'PENDING',
+                                pending: {
+                                    fillAmount: 100000000000000000,
+                                },
+                                remainingTakerTokenAmount: '8000000000000000000',
+                            },
+                        ],
+                    ];
+                    const shouldFail = true;
+                    validateAgainstSchema(testCases, relayerApiOrdersResponseSchema, shouldFail);
+                });
+            });
         });
     });
     describe('BigNumber serialization', () => {
@@ -377,6 +493,264 @@ describe('Schema', () => {
             _.forEach(testCases, (serialized: string, input: string) => {
                 expect(JSON.parse(JSON.stringify(new BigNumber(input)))).to.be.equal(serialized);
             });
+        });
+    });
+    describe('#relayerApiErrorResponseSchema', () => {
+        it('should validate valid errorResponse', () => {
+            const testCases = [
+                {
+                    code: 102,
+                    reason: 'Order submission disabled',
+                },
+                {
+                    code: 101,
+                    reason: 'Validation failed',
+                    validationErrors: [
+                        {
+                            field: 'maker',
+                            code: 1002,
+                            reason: 'Invalid address',
+                        },
+                    ],
+                },
+            ];
+            validateAgainstSchema(testCases, relayerApiErrorResponseSchema);
+        });
+        it('should fail for invalid error responses', () => {
+            const testCases = [
+                {},
+                {
+                    code: 102,
+                },
+                {
+                    code: '102',
+                    reason: 'Order submission disabled',
+                },
+                {
+                    reason: 'Order submission disabled',
+                },
+                {
+                    code: 101,
+                    reason: 'Validation failed',
+                    validationErrors: [
+                        {
+                            field: 'maker',
+                            reason: 'Invalid address',
+                        },
+                    ],
+                },
+                {
+                    code: 101,
+                    reason: 'Validation failed',
+                    validationErrors: [
+                        {
+                            field: 'maker',
+                            code: '1002',
+                            reason: 'Invalid address',
+                        },
+                    ],
+                },
+            ];
+            const shouldFail = true;
+            validateAgainstSchema(testCases, relayerApiErrorResponseSchema, shouldFail);
+        });
+    });
+    describe('#relayerApiFeesPayloadSchema', () => {
+        it('should validate valid fees payloads', () => {
+            const testCases = [
+                {
+                    makerToken: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
+                    takerToken: '0xef7fff64389b814a946f3e92105513705ca6b990',
+                    makerTokenAmount: '10000000000000000000',
+                    takerTokenAmount: '30000000000000000000',
+                },
+                {
+                    maker: '0x9e56625509c2f60af937f23b7b532600390e8c8b',
+                    taker: '0xa2b31dacf30a9c50ca473337c01d8a201ae33e32',
+                    makerToken: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
+                    takerToken: '0xef7fff64389b814a946f3e92105513705ca6b990',
+                    makerTokenAmount: '10000000000000000000',
+                    takerTokenAmount: '30000000000000000000',
+                },
+                {
+                    maker: '0x9e56625509c2f60af937f23b7b532600390e8c8b',
+                    makerToken: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
+                    takerToken: '0xef7fff64389b814a946f3e92105513705ca6b990',
+                    makerTokenAmount: '10000000000000000000',
+                    takerTokenAmount: '30000000000000000000',
+                },
+            ];
+            validateAgainstSchema(testCases, relayerApiFeesPayloadSchema);
+        });
+        it('should fail for invalid fees payloads', () => {
+            const checksummedAddress = '0xA2b31daCf30a9C50ca473337c01d8A201ae33e32';
+            const testCases = [
+                {},
+                {
+                    takerToken: '0xef7fff64389b814a946f3e92105513705ca6b990',
+                    makerTokenAmount: '10000000000000000000',
+                    takerTokenAmount: '30000000000000000000',
+                },
+                {
+                    taker: checksummedAddress,
+                    makerToken: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
+                    takerToken: '0xef7fff64389b814a946f3e92105513705ca6b990',
+                    makerTokenAmount: '10000000000000000000',
+                    takerTokenAmount: '30000000000000000000',
+                },
+                {
+                    makerToken: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
+                    takerToken: '0xef7fff64389b814a946f3e92105513705ca6b990',
+                    makerTokenAmount: 10000000000000000000,
+                    takerTokenAmount: 30000000000000000000,
+                },
+            ];
+            const shouldFail = true;
+            validateAgainstSchema(testCases, relayerApiFeesPayloadSchema, shouldFail);
+        });
+    });
+    describe('#relayerApiFeesResponseSchema', () => {
+        it('should validate valid fees responses', () => {
+            const testCases = [
+                {
+                    makerFee: '10000000000000000',
+                    takerFee: '30000000000000000',
+                },
+                {
+                    feeRecipient: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
+                    makerFee: '10000000000000000',
+                    takerFee: '30000000000000000',
+                },
+                {
+                    takerToSpecify: '0xef7fff64389b814a946f3e92105513705ca6b990',
+                    makerFee: '10000000000000000',
+                    takerFee: '30000000000000000',
+                },
+            ];
+            validateAgainstSchema(testCases, relayerApiFeesResponseSchema);
+        });
+        it('should fail for invalid fees responses', () => {
+            const checksummedAddress = '0xA2b31daCf30a9C50ca473337c01d8A201ae33e32';
+            const testCases = [
+                {},
+                {
+                    makerFee: 10000000000000000,
+                    takerFee: 30000000000000000,
+                },
+                {
+                    feeRecipient: checksummedAddress,
+                    takerToSpecify: checksummedAddress,
+                    makerFee: '10000000000000000',
+                    takerFee: '30000000000000000',
+                },
+            ];
+            const shouldFail = true;
+            validateAgainstSchema(testCases, relayerApiFeesResponseSchema, shouldFail);
+        });
+    });
+    describe('#relayerApiTokenPairsResponseSchema', () => {
+        it('should validate valid tokenPairs response', () => {
+            const testCases = [
+                [],
+                [
+                    {
+                        tokenA: {
+                            address: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
+                            symbol: 'MKR',
+                            precision: 18,
+                            minAmount: '0',
+                            maxAmount: '10000000000000000000',
+                        },
+                        tokenB: {
+                            address: '0xef7fff64389b814a946f3e92105513705ca6b990',
+                            symbol: 'GLM',
+                            precision: 18,
+                            minAmount: '0',
+                            maxAmount: '50000000000000000000',
+                        },
+                    },
+                ],
+                [
+                    {
+                        tokenA: {
+                            address: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
+                            symbol: 'MKR',
+                            precision: 18,
+                        },
+                        tokenB: {
+                            address: '0xef7fff64389b814a946f3e92105513705ca6b990',
+                            symbol: 'GLM',
+                            precision: 18,
+                        },
+                    },
+                ],
+            ];
+            validateAgainstSchema(testCases, relayerApiTokenPairsResponseSchema);
+        });
+        it('should fail for invalid tokenPairs responses', () => {
+            const checksummedAddress = '0xA2b31daCf30a9C50ca473337c01d8A201ae33e32';
+            const testCases = [
+                [
+                    {
+                        tokenA: {
+                            address: checksummedAddress,
+                            symbol: 'MKR',
+                            precision: 18,
+                        },
+                        tokenB: {
+                            address: checksummedAddress,
+                            symbol: 'GLM',
+                            precision: 18,
+                        },
+                    },
+                ],
+                [
+                    {
+                        tokenA: {
+                            address: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
+                            symbol: 'MKR',
+                            precision: '18',
+                        },
+                        tokenB: {
+                            address: '0xef7fff64389b814a946f3e92105513705ca6b990',
+                            symbol: 'GLM',
+                            precision: '18',
+                        },
+                    },
+                ],
+                [
+                    {
+                        tokenA: {
+                            address: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
+                            symbol: 'MKR',
+                        },
+                        tokenB: {
+                            address: '0xef7fff64389b814a946f3e92105513705ca6b990',
+                            symbol: 'GLM',
+                        },
+                    },
+                ],
+                [
+                    {
+                        tokenA: {
+                            address: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
+                            symbol: 'MKR',
+                            precision: 18,
+                            minAmount: 0,
+                            maxAmount: 10000000000000000000,
+                        },
+                        tokenB: {
+                            address: '0xef7fff64389b814a946f3e92105513705ca6b990',
+                            symbol: 'GLM',
+                            precision: 18,
+                            minAmount: 0,
+                            maxAmount: 50000000000000000000,
+                        },
+                    },
+                ],
+            ];
+            const shouldFail = true;
+            validateAgainstSchema(testCases, relayerApiTokenPairsResponseSchema, shouldFail);
         });
     });
 });
