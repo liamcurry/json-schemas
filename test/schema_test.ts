@@ -386,7 +386,7 @@ describe('Schema', () => {
                         },
                         {
                             signedOrder,
-                            state: 'PENDING',
+                            state: 'OPEN',
                             pending: {
                                 fillAmount: '100000000000000000',
                                 cancelAmount: '100000000000000000',
@@ -411,7 +411,7 @@ describe('Schema', () => {
                         },
                         {
                             signedOrder,
-                            state: 'PENDING',
+                            state: 'OPEN',
                             pending: {
                                 fillAmount: 100000000000000000,
                             },
@@ -436,7 +436,7 @@ describe('Schema', () => {
                         [
                             {
                                 signedOrder,
-                                state: 'PENDING',
+                                state: 'OPEN',
                                 pending: {
                                     fillAmount: '100000000000000000',
                                     cancelAmount: '100000000000000000',
@@ -466,7 +466,7 @@ describe('Schema', () => {
                         [
                             {
                                 signedOrder,
-                                state: 'PENDING',
+                                state: 'OPEN',
                                 pending: {
                                     fillAmount: 100000000000000000,
                                 },

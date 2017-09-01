@@ -10,7 +10,7 @@ export const relayerApiOrderResponseSchema = {
     properties: {
         signedOrder: {$ref: '/SignedOrder'},
         state: {
-            enum: ['OPEN', 'EXPIRED', 'CLOSED', 'UNFUNDED', 'PENDING'],
+            enum: ['OPEN', 'EXPIRED', 'CLOSED', 'UNFUNDED'],
         },
         pending: {
             type: 'object',
