@@ -559,23 +559,23 @@ describe('Schema', () => {
         it('should validate valid fees payloads', () => {
             const testCases = [
                 {
-                    makerToken: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
-                    takerToken: '0xef7fff64389b814a946f3e92105513705ca6b990',
+                    makerTokenAddress: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
+                    takerTokenAddress: '0xef7fff64389b814a946f3e92105513705ca6b990',
                     makerTokenAmount: '10000000000000000000',
                     takerTokenAmount: '30000000000000000000',
                 },
                 {
                     maker: '0x9e56625509c2f60af937f23b7b532600390e8c8b',
                     taker: '0xa2b31dacf30a9c50ca473337c01d8a201ae33e32',
-                    makerToken: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
-                    takerToken: '0xef7fff64389b814a946f3e92105513705ca6b990',
+                    makerTokenAddress: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
+                    takerTokenAddress: '0xef7fff64389b814a946f3e92105513705ca6b990',
                     makerTokenAmount: '10000000000000000000',
                     takerTokenAmount: '30000000000000000000',
                 },
                 {
                     maker: '0x9e56625509c2f60af937f23b7b532600390e8c8b',
-                    makerToken: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
-                    takerToken: '0xef7fff64389b814a946f3e92105513705ca6b990',
+                    makerTokenAddress: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
+                    takerTokenAddress: '0xef7fff64389b814a946f3e92105513705ca6b990',
                     makerTokenAmount: '10000000000000000000',
                     takerTokenAmount: '30000000000000000000',
                 },
@@ -587,20 +587,20 @@ describe('Schema', () => {
             const testCases = [
                 {},
                 {
-                    takerToken: '0xef7fff64389b814a946f3e92105513705ca6b990',
+                    takerTokenAddress: '0xef7fff64389b814a946f3e92105513705ca6b990',
                     makerTokenAmount: '10000000000000000000',
                     takerTokenAmount: '30000000000000000000',
                 },
                 {
                     taker: checksummedAddress,
-                    makerToken: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
-                    takerToken: '0xef7fff64389b814a946f3e92105513705ca6b990',
+                    makerTokenAddress: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
+                    takerTokenAddress: '0xef7fff64389b814a946f3e92105513705ca6b990',
                     makerTokenAmount: '10000000000000000000',
                     takerTokenAmount: '30000000000000000000',
                 },
                 {
-                    makerToken: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
-                    takerToken: '0xef7fff64389b814a946f3e92105513705ca6b990',
+                    makerTokenAddress: '0x323b5d4c32345ced77393b3530b1eed0f346429d',
+                    takerTokenAddress: '0xef7fff64389b814a946f3e92105513705ca6b990',
                     makerTokenAmount: 10000000000000000000,
                     takerTokenAmount: 30000000000000000000,
                 },
