@@ -4,10 +4,10 @@ export const relayerApiFeesPayloadSchema = {
     properties: {
         maker: {$ref: '/Address'},
         taker: {$ref: '/Address'},
-        makerToken: {$ref: '/Address'},
-        takerToken: {$ref: '/Address'},
+        makerTokenAddress: {$ref: '/Address'},
+        takerTokenAddress: {$ref: '/Address'},
         makerTokenAmount: {$ref: '/Number'},
         takerTokenAmount: {$ref: '/Number'},
     },
-    required: ['makerToken', 'takerToken', 'makerTokenAmount', 'takerTokenAmount'],
+    required: ['makerTokenAddress', 'takerTokenAddress', 'makerTokenAmount', 'takerTokenAmount'],
 };

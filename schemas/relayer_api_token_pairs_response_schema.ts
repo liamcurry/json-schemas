@@ -17,9 +17,9 @@ export const relayerApiTokenTradeInfoSchema = {
     properties: {
         address: {$ref: '/Address'},
         symbol: {type: 'string'},
-        precision: {type: 'number'},
+        decimals: {type: 'number'},
         minAmount: {$ref: '/Number'},
         maxAmount: {$ref: '/Number'},
     },
-    required: ['address', 'symbol', 'precision'],
+    required: ['address', 'symbol', 'decimals'],
 };
