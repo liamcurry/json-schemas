@@ -763,7 +763,6 @@ describe('Schema', () => {
                 {
                     from: NULL_ADDRESS,
                     gas: new BigNumber(42),
-                    unknownProp: 'here',
                 },
             ];
             validateAgainstSchema(testCases, txDataSchema);
@@ -772,6 +771,10 @@ describe('Schema', () => {
             const testCases = [
                 {
                     gas: new BigNumber(42),
+                },
+                {
+                    from: NULL_ADDRESS,
+                    unknownProp: 'here',
                 },
                 {},
                 [],

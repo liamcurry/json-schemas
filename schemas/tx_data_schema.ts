@@ -14,4 +14,5 @@ export const txDataSchema = {
     },
     required: ['from'],
     type: 'object',
+    additionalProperties: false,
 };
