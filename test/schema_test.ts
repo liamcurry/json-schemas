@@ -778,7 +778,7 @@ describe('Schema', () => {
                 new BigNumber(1),
             ];
             const shouldFail = true;
-            validateAgainstSchema(testCases, relayerApiTokenPairsResponseSchema, shouldFail);
+            validateAgainstSchema(testCases, txDataSchema, shouldFail);
         });
     });
 });
