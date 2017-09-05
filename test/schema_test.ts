@@ -26,6 +26,7 @@ const {
     blockParamSchema,
     subscriptionOptsSchema,
     tokenSchema,
+    txDataSchema,
     relayerApiErrorResponseSchema,
     relayerApiFeesPayloadSchema,
     relayerApiFeesResponseSchema,
@@ -751,6 +752,36 @@ describe('Schema', () => {
             ];
             const shouldFail = true;
             validateAgainstSchema(testCases, relayerApiTokenPairsResponseSchema, shouldFail);
+        });
+    });
+    describe('#txDataSchema', () => {
+        it('should validate valid txData', () => {
+            const testCases = [
+                {
+                    from: NULL_ADDRESS,
+                },
+                {
+                    from: NULL_ADDRESS,
+                    gas: new BigNumber(42),
+                },
+            ];
+            validateAgainstSchema(testCases, txDataSchema);
+        });
+        it('should fail for invalid txData', () => {
+            const testCases = [
+                {
+                    gas: new BigNumber(42),
+                },
+                {
+                    from: NULL_ADDRESS,
+                    unknownProp: 'here',
+                },
+                {},
+                [],
+                new BigNumber(1),
+            ];
+            const shouldFail = true;
+            validateAgainstSchema(testCases, txDataSchema, shouldFail);
         });
     });
 });
