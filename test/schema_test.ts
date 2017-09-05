@@ -26,6 +26,7 @@ const {
     blockParamSchema,
     subscriptionOptsSchema,
     tokenSchema,
+    jsNumber,
     txDataSchema,
     relayerApiErrorResponseSchema,
     relayerApiFeesPayloadSchema,
@@ -754,6 +755,24 @@ describe('Schema', () => {
             validateAgainstSchema(testCases, relayerApiTokenPairsResponseSchema, shouldFail);
         });
     });
+    describe('#jsNumberSchema', () => {
+        it('should validate valid js number', () => {
+            const testCases = [
+                1,
+                42,
+            ];
+            validateAgainstSchema(testCases, jsNumber);
+        });
+        it('should fail for invalid js number', () => {
+            const testCases = [
+                NaN,
+                -1,
+                new BigNumber(1),
+            ];
+            const shouldFail = true;
+            validateAgainstSchema(testCases, jsNumber, shouldFail);
+        });
+    });
     describe('#txDataSchema', () => {
         it('should validate valid txData', () => {
             const testCases = [
@@ -763,6 +782,10 @@ describe('Schema', () => {
                 {
                     from: NULL_ADDRESS,
                     gas: new BigNumber(42),
+                },
+                {
+                    from: NULL_ADDRESS,
+                    gas: 42,
                 },
             ];
             validateAgainstSchema(testCases, txDataSchema);

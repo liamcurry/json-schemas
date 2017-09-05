@@ -53,6 +53,7 @@ import {
     relayerApiTokenTradeInfoSchema,
 } from '../schemas/relayer_api_token_pairs_response_schema';
 import {
+    jsNumber,
     txDataSchema,
 } from '../schemas/tx_data_schema';
 
@@ -72,6 +73,7 @@ export const schemas = {
     blockParamSchema,
     subscriptionOptsSchema,
     tokenSchema,
+    jsNumber,
     txDataSchema,
     relayerApiErrorResponseSchema,
     relayerApiFeesPayloadSchema,
