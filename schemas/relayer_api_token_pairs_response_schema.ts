@@ -20,6 +20,7 @@ export const relayerApiTokenTradeInfoSchema = {
         decimals: {type: 'number'},
         minAmount: {$ref: '/Number'},
         maxAmount: {$ref: '/Number'},
+        precision: {type: 'number'},
     },
     required: ['address', 'symbol', 'decimals'],
 };
