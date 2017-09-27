@@ -1,6 +1,6 @@
 {
   "name": "0x-json-schemas",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "0x-related json schemas",
   "main": "lib/src/index.js",
   "types": "lib/src/index.d.ts",
@@ -22,17 +22,19 @@
   },
   "homepage": "https://github.com/0xProject/json-schemas#readme",
   "dependencies": {
-    "jsonschema": "^1.2.0"
+    "@types/lodash.values": "^4.3.3",
+    "jsonschema": "^1.2.0",
+    "lodash.values": "^4.3.0"
   },
   "devDependencies": {
     "@types/bignumber.js": "^4.0.3",
-    "@types/lodash": "^4.14.74",
+    "@types/lodash.foreach": "^4.5.3",
     "@types/mocha": "^2.2.42",
     "bignumber.js": "^4.0.2",
     "chai": "^4.1.1",
     "chai-typescript-typings": "^0.0.0",
     "dirty-chai": "^2.0.1",
-    "lodash": "^4.17.4",
+    "lodash.foreach": "^4.5.0",
     "mocha": "^3.5.0",
     "npm-run-all": "^4.1.1",
     "shx": "^0.2.2",

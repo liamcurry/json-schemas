@@ -2,7 +2,7 @@
 Contains 0x-related json schemas
 
 ## Usage:
-```
+```ts
 import {SchemaValidator, ValidatorResult, schemas} from '0x-json-schemas';
 
 const {orderSchema} = schemas;

@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import values = require('lodash.values');
 import {Validator, ValidatorResult, Schema} from 'jsonschema';
 import {schemas} from './schemas';
 
@@ -6,7 +6,7 @@ export class SchemaValidator {
     private validator: Validator;
     constructor() {
         this.validator = new Validator();
-        for (const schema of _.values(schemas)) {
+        for (const schema of values(schemas)) {
             this.validator.addSchema(schema, schema.id);
         }
     }
